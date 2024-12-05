@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container-fluid ">
+        <div class="row">
+            <h2 >{{blog_title}}</h2>
+        </div>
+        <div class="row m-3">
+            {% for post in page_obj %}
+            <div class="col-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="{{post.img_url}}" class="img-fluid" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <h5 class="card-title">{{post.title}}</h5>
+                                <h6 class="card-text">{{post.rating}}</h6>
+                                <p class="card-text">{{post.content|truncatechars:50}}</p>
+                                <div class="d-flex justify-content-between">
+                                     <a href="{% url 'detail' slug=post.slug %}">Read More</a>
+                                    <a class="text-decoration-none text-dark fw-bold" href="">{{post.category.name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+           {% if page_obj.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+
+                    <!-- Previous Page Link -->
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                    {% endif %}
+
+                    <!-- Numbered Page Links -->
+                    {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+
+                    <!-- Next Page Link -->
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
+

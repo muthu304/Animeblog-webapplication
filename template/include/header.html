@@ -1,0 +1,24 @@
+
+    <header class="p-3 bg-dark text-white">
+        <div class="row">
+            <div class="col">
+                <h3>Anime Blog</h3>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-center gap-3">
+                    <a class="text-light text-decoration-none" href="{% url 'index' %}">Home</a>
+                    <a class="text-light text-decoration-none" href="{% url 'about' %}">About</a>
+                    <a class="text-light text-decoration-none" href="{% url 'contact' %}">Contact</a>
+                    {% if user.is_authenticated %}
+                    <a class="text-light text-decoration-none" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="text-light text-decoration-none" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a class="text-light text-decoration-none" href="{% url 'register' %}">Register</a>
+                    <a class="text-light text-decoration-none" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </header>
